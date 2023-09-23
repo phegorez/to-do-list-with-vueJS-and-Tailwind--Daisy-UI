@@ -8,6 +8,9 @@ export default {
     extend: {
       fontFamily: {
         Kanit : ["Kanit", "sans-serif"]
+      },
+      boxShadow: {
+        'input' : 'rgba(0, 0, 0, 0.24) 0px 3px 8px'
       }
     },
   },

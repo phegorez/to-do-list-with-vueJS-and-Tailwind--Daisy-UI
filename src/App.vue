@@ -1,95 +1,35 @@
 <template>
-  <section class="container flex-col justify-center items-center h-screen m-auto">
-    <h1 class="font-Kanit font-bold text-3xl mt-3">To-Do List 📑</h1>
-    <!-- Add new task form -->
-    <div class="flex flex-row items-center justify-center gap-10 mt-3">
-      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Please write your task"
-        v-model="inputTask">
-      <button type="button" class="btn btn-primary" @click="addNewTask">Add new task</button>
-    </div>
-
-
-    <!-- Task List -->
-    <table class="table">
-
-      <thead>
-        <tr>
-          <th>Task Name</th>
-          <th>Status</th>
-          <th>Delete</th>
-          <th>Edit</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr :class="task.Status ? 'bg-[#0E402D]' : 'bg-base-200'" class="" v-for="(task, id) in tasks" :key="id">
-          <td>
-            <p :style="task.Status ? { textDecoration: 'line-through' } : ''" :class="task.Status ? 'italic' : ''" class="text-xl capitalize">{{ task.Task_Name }}</p>
-          </td>
-          <td>
-            <input type="checkbox" name="checkbox" v-model="task.Status" class="checkbox">
-          </td>
-          <td>
-            <button type="button" class="btn btn-outline btn-error" @click="delTask(task.id)">Delete Task</button>
-          </td>
-          <td>
-            <button class="btn btn-outline btn-info" onclick="my_modal_1.showModal()">Edit</button>
-
-            <dialog id="my_modal_1" class="modal">
-              <div class="modal-box">
-                <h3 class="font-bold text-lg">Edit your task</h3>
-                <input type="text" class="input input-bordered w-full max-w-xs" v-model="task.Task_Name" placeholder="Edit">
-                <div class="modal-action">
-                  <form method="dialog">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn btn-primary">Save</button>
-                  </form>
-                </div>
-              </div>
-            </dialog>
-
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-  </section>
+  <main class="flex flex-col m-10 gap-12">
+    <Header @deliverInput="getHandleInput" />
+    <TaskList @deleteTask="responDelete" :responTask = 'tasks' />
+  </main>
 </template>
 <script>
+import Header from './components/Header.vue'
+import TaskList from './components/TaskList.vue'
+
+
 export default {
+  components : {
+    Header, TaskList
+  },
   data() {
     return {
-      inputTask: '',
-      tasks: [],
+      tasks : []
     }
   },
-  methods: {
-    addNewTask() {
-      if (this.inputTask == '') {
-        alert('Please add your task')
-      } else {
-        this.tasks = [
-          {
-            id: new Date().getTime(),
-            Task_Name: this.inputTask,
-            Status: false
-          },
-          ...this.tasks
-        ]
-        this.inputTask = ''
-      }
+  methods : {
+    getHandleInput(handleInput) {
+      this.tasks = handleInput
     },
-    delTask(id) {
-      this.tasks = this.tasks.filter((task) => task.id !== id)
+    responDelete(taskId) {
+      const findId = this.tasks.map((task) => {
+        return task.id
+      })
+      .indexOf(taskId)
+
+      this.tasks.splice(findId, 1)
     }
-  },
+  }
 }
 </script>
-<style scoped="">
-.task-form {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-}
-</style>
