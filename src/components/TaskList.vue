@@ -1,20 +1,22 @@
 <template>
-    <section class="flex flex-wrap gap-8 justify-center py-4 shadow-input shadow-success rounded-md"
-        v-if="responTask.length > 0">
-        <div class="card w-96 bg-neutral text-neutral-content" v-for="(task, id) in responTask" :key="task.id">
-            <div class="card-body items-center text-center">
-                <h2 class="card-title">{{ task.taskName_input }}</h2>
-                <p>{{ task.taskDetails_input }}</p>
-                <div class="card-actions justify-end flex items-center gap-2">
-                    <button class="btn btn-primary" @click="openEditModal(task.id)">Edit</button>
+    <section v-if="responTask.length === 0">
+        Not have any Task
+    </section>
+    <section class="flex flex-wrap gap-8 justify-center py-4 shadow-input shadow-primary rounded-md"
+        v-else-if="responTask.length > 0">
+        <div class="cursor-pointer card w-96 bg-neutral text-neutral-content hover:shadow-input" :class="task.status ? 'hover:shadow-success' : 'hover:shadow-error'" v-for="(task, id) in responTask" :key="task.id">
+            <div class="card-body items-start text-center relative">
+                <div class="flex flex-col absolute top-4 right-4">
+                        <input type="checkbox" :class="task.status ? 'checkbox  checkbox-success' : 'checkbox'" v-model="task.status">
+                    </div>
+                <h2 class="card-title" :class="task.status ? 'italic line-through' : ''">{{ task.taskName_input }}</h2>
+                <p :class="task.status ? 'italic line-through' : ''">{{ task.taskDetails_input }}</p>
+                <div class="card-actions flex items-center gap-2">
+                    <button class="btn btn-primary btn-sm" @click="openEditModal(task.id)">Edit</button>
                     <dialog :id="'editModal-' + task.id" class="modal">
                         <EditTask :selectedTask = 'task' />
                     </dialog>
-                    <button class="btn btn-ghost" @click="deleteTask(task.id)">Delete</button>
-                    <div class="flex flex-col">
-                        <label for="checkStatus">Success</label>
-                        <input type="checkbox" class="checkbox" v-model="task.status">
-                    </div>
+                    <button class="btn btn-error btn-outline btn-sm" @click="deleteTask(task.id)">Delete</button>
                 </div>
             </div>
         </div>

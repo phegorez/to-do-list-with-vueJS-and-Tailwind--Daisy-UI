@@ -8,19 +8,19 @@
 import Header from './components/Header.vue'
 import TaskList from './components/TaskList.vue'
 
-
 export default {
   components : {
     Header, TaskList
   },
+  
   data() {
     return {
-      tasks : []
+      tasks : [],
     }
   },
   methods : {
-    getHandleInput(handleInput) {
-      this.tasks = handleInput
+    getHandleInput(deliveredInputTask) {
+      this.tasks = deliveredInputTask
     },
     responDelete(taskId) {
       const findId = this.tasks.map((task) => {
@@ -30,6 +30,7 @@ export default {
 
       this.tasks.splice(findId, 1)
     }
-  }
+  },
+  
 }
 </script>

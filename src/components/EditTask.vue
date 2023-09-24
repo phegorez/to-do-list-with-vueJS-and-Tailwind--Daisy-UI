@@ -11,7 +11,7 @@
         </div>
         <div class="flex justify-between">
             <button class="btn btn-error btn-outline btn-sm">close</button>
-            <button type="submit" class="btn btn-success btn-outline btn-sm">add</button>
+            <button type="submit" class="btn btn-success btn-outline btn-sm">Edit</button>
         </div>
     </form>
 </template>

@@ -1,10 +1,9 @@
 <template>
     <header class="flex justify-between items-center">
-        <h1>To-Do List</h1>
-        <button class="btn btn-success btn-outline" onclick="inputModal.showModal()">Add Task</button>
-
+        <h1 class="text-2xl font-bold">To-Do List</h1>
+        <button class="btn btn-success btn-outline" @click="openInputModal">Add Task</button>
         <dialog id="inputModal" class="modal">
-            <InputTask @inputTask="getInputTask"/>
+            <InputTask @inputTask="getInputTask" :backToInput="openInputModal"/>
         </dialog>
     </header>
 </template>
@@ -25,6 +24,10 @@ export default {
         getInputTask(inputTask) {
             this.handleInputTask = inputTask
             this.$emit('deliverInput', this.handleInputTask)
+        },
+        openInputModal() {
+            const inputmodal = document.getElementById('inputModal')
+            inputmodal.showModal()
         }
     }
     
