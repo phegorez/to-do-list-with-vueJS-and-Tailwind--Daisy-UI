@@ -14,7 +14,7 @@
                 <div class="card-actions flex items-center gap-2">
                     <button class="btn btn-primary btn-sm" @click="openEditModal(task.id)">Edit</button>
                     <dialog :id="'editModal-' + task.id" class="modal">
-                        <EditTask :selectedTask = 'task' />
+                        <EditTask :selectedTask = 'task' @editTask="handleEditTask"/>
                     </dialog>
                     <button class="btn btn-error btn-outline btn-sm" @click="deleteTask(task.id)">Delete</button>
                 </div>
@@ -39,6 +39,9 @@ export default {
             const modalId = 'editModal-' + taslId
             const modal = document.getElementById(modalId)
             modal.showModal()
+        },
+        handleEditTask(editedTask) {
+            this.$emit('editTask', editedTask)
         }
     }
 }
