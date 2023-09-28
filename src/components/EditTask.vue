@@ -4,11 +4,11 @@
         <div class="flex flex-col gap-4 mb-4">
             <label for="task-name">Task Name</label>
             <input type="text" class="input input-bordered w-full max-w-xs"
-                v-model="selectedTask.taskName_input" :placeholder="selectedTask.taskName_input == '' ? 'Please input Task Name' : ''">
+                v-model.trim="selectedTask.taskName_input" :placeholder="selectedTask.taskName_input == '' ? 'Please input Task Name' : ''">
         </div>
         <div class="flex flex-col gap-4 mb-4">
             <label for="task-details">Task Details</label>
-            <textarea name="task-details" class="textarea textarea-bordered" v-model="selectedTask.taskDetails_input" rows="4" cols="50"
+            <textarea name="task-details" class="textarea textarea-bordered" v-model.trim="selectedTask.taskDetails_input" rows="4" cols="50"
                 :placeholder="selectedTask.taskDetails_input == '' ? 'Please input Detials' : ''"></textarea>
         </div>
         <div class="flex justify-between">
